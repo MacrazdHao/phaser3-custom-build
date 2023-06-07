@@ -7,64 +7,78 @@ const path = require('path');
 
 module.exports = {
 
-   //   mode: 'development',
-   mode: 'production',
+  //   mode: 'development',
+  mode: 'production',
 
-   entry: {
-       'phaser-custom': `./phaser-custom.js`,
-       'phaser-custom.min': './phaser-custom.js'
-   },
+  entry: {
+    'phaser-custom': `./phaser-custom.js`,
+    'phaser-custom.min': './phaser-custom.js'
+  },
 
-   resolve: {
-       alias: {
-           'eventemitter3': path.resolve(__dirname, './node_modules/eventemitter3')
-       },
-       modules: [ 'node_modules/phaser/src' ]
-   },
+  resolve: {
+    alias: {
+      'eventemitter3': path.resolve(__dirname, './node_modules/eventemitter3'),
+      'phaser3spectorjs': path.resolve(__dirname, './node_modules/phaser3spectorjs')
+    },
+    modules: ['node_modules/phaser/src']
+  },
 
-   output: {
-       path: `${__dirname}/dist/`,
-       filename: '[name].js',
-       library: 'Phaser',
-       libraryTarget: 'umd',
-       sourceMapFilename: '[file].map',
-       devtoolModuleFilenameTemplate: 'webpack:///[resource-path]',
-       devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
-       umdNamedDefine: true
-   },
+  stats: {
+    modules: true,
+  },
 
-   performance: { hints: false },
+  experiments: {
+    outputModule: true
+  },
 
-   optimization: {
-       minimizer: [
-           new UglifyJSPlugin({
-               include: /\.min\.js$/,
-               parallel: true,
-               sourceMap: false,
-               uglifyOptions: {
-                   compress: true,
-                   ie8: false,
-                   ecma: 5,
-                   output: {comments: false},
-                   warnings: false
-               },
-               warningsFilter: () => false
-           })
-       ]
-   },
+  output: {
+    path: `${__dirname}/dist/`,
+    filename: '[name].js',
+    library: {
+      name: 'Phaser',
+      type: 'module'
+    },
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+    sourceMapFilename: '[file].map',
+    devtoolModuleFilenameTemplate: 'webpack:///[resource-path]',
+    devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
+    umdNamedDefine: true
+  },
 
-   plugins: [
-       new webpack.DefinePlugin({
-           "typeof CANVAS_RENDERER": JSON.stringify(true),
-           "typeof WEBGL_RENDERER": JSON.stringify(true),
-           "typeof EXPERIMENTAL": JSON.stringify(false),
-           "typeof PLUGIN_CAMERA3D": JSON.stringify(false),
-           "typeof PLUGIN_FBINSTANT": JSON.stringify(false)
-       }),
+  performance: { hints: false },
 
-       new CleanWebpackPlugin()
-   ],
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin({
+        include: /\.min\.js$/,
+        parallel: true,
+        sourceMap: false,
+        uglifyOptions: {
+          compress: true,
+          ie8: false,
+          ecma: 6,
+          output: { comments: false },
+          warnings: false,
+          module: true
+        },
+        warningsFilter: () => false
+      })
+    ]
+  },
 
-   devtool: 'source-map'
+  plugins: [
+    new webpack.DefinePlugin({
+      "typeof CANVAS_RENDERER": JSON.stringify(true),
+      "typeof WEBGL_RENDERER": JSON.stringify(true),
+      "typeof EXPERIMENTAL": JSON.stringify(false),
+      "typeof PLUGIN_CAMERA3D": JSON.stringify(false),
+      "typeof PLUGIN_FBINSTANT": JSON.stringify(false)
+    }),
+
+    new CleanWebpackPlugin()
+  ],
+
+  devtool: 'source-map'
 
 };

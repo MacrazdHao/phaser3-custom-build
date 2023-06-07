@@ -1,9 +1,9 @@
 require('polyfills');
 
-var CONST = require('const');
-var Extend = require('utils/object/Extend');
+const CONST = require('const');
+const Extend = require('utils/object/Extend');
 
-var Phaser = {
+const Phaser = {
 
    Cameras: {
        Scene2D: require('cameras/2d')
@@ -32,6 +32,8 @@ Phaser = Extend(false, Phaser, CONST);
 
 //  Export it
 
-module.exports = Phaser;
+// module.exports = Phaser;
 
 global.Phaser = Phaser;
+
+export default Phaser

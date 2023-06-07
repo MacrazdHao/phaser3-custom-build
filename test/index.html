@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <script src="../dist/phaser-custom.js"></script>
+    <!-- <script src="../dist/phaser-custom.js"></script>
+    <script type="module">
+        import Phaser from '../dist/phaser-custom.js'
+    </script> -->
     <style>
         body {
             margin: 0;
@@ -15,7 +18,9 @@
 </head>
 <body>
 
-<script>
+<script type="module">
+    
+    import Phaser from '../dist/phaser-custom.js'
 var config = {
     type: Phaser.AUTO,
     width: 800,
